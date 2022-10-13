@@ -26,9 +26,10 @@ contract Lock {
 
         require(block.timestamp >= unlockTime, "You can't withdraw yet");
         require(msg.sender == owner, "You aren't the owner");
+        
+        uint balance = address(this).balance;
+        emit Withdrawal(balance, block.timestamp);
 
-        emit Withdrawal(address(this).balance, block.timestamp);
-
-        owner.transfer(address(this).balance);
+        owner.transfer(balance);
     }
 }
